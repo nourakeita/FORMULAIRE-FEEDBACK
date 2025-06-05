@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Formulaire de Feedback SUNU Assurance</title>
+    <link rel="stylesheet" href="FORMULAIRE.css" />
+</head>
+<body>
+
+<header>
+    <div class="logo-container">
+        <img src="SUNU LOGO.jfif" alt="Logo SUNU Assurance" class="logo" />
+    </div>
+    <h1 class="main-title">Votre Avis Compte chez SUNU Assurance</h1>
+</header>
+
+<main>
+    <form id="feedback-form">
+        <!-- Nom (optionnel) -->
+        <label for="nom">Nom (optionnel) :</label>
+        <input type="text" id="nom" name="nom" placeholder="Votre nom" />
+
+        <!-- Prénom (optionnel) -->
+        <label for="prenom">Prénom (optionnel) :</label>
+        <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" />
+
+        <!-- Email (requis) -->
+        <label for="email">Email (optionnel)  :</label>
+        <input type="email" id="email" name="email" placeholder="votre.email@example.com" required />
+
+        <!-- Téléphone (optionnel) -->
+        <label for="telephone">Téléphone (optionnel) :</label>
+        <input type="tel" id="telephone" name="telephone" placeholder="+221 77 123 45 67" />
+
+        <!-- Demande d'être rappelé -->
+        <label>
+            <input type="checkbox" id="rappel" name="rappel" />
+            Je souhaite être rappelé
+        </label>
+
+        <!-- Département où il est venu -->
+        <label for="departement">Département visité :</label>
+<select id="departement" name="departement" required>
+         <option value="">-- Sélectionnez un département --</option>
+         <option value="accueil">Accueil</option>
+         <option value="reassurance">Réassurance</option>
+         <option value="courtage">Courtage</option>
+         <option value="sante">Santé</option>
+       <option value="transport">Transport</option>
+       <option value="comptable">Comptable</option>
+       <option value="information">Information</option>
+       <option value="autre">Autre</option>
+</select>
+
+        <!-- Objet de sa visite -->
+        <label for="objet">Objet de votre visite :</label>
+        <input type="text" id="objet" name="objet" placeholder="Ce que vous êtes venu faire" required />
+
+        <!-- Est-ce que ça a été fait ? -->
+        <p>Est-ce que votre demande a été traitée ?</p>
+        <label>
+            <input type="radio" name="fait" value="oui" required />
+            Oui
+        </label>
+        <label>
+            <input type="radio" name="fait" value="non" required />
+            Non
+        </label>
+
+        <!-- Commentaire -->
+        <label for="commentaire">Votre commentaire :</label>
+        <textarea id="commentaire" name="commentaire" rows="4" placeholder="Votre avis, remarques, suggestions..."></textarea>
+
+        <!-- Sujet de la demande -->
+        <label for="sujet">Sujet de la demande :</label>
+        <select id="sujet" name="sujet" required>
+            <option value="" disabled selected>-- Sélectionnez un sujet --</option>
+            <option value="assurance">Assurance</option>
+            <option value="sinistre">Déclaration de sinistre</option>
+            <option value="facturation">Facturation</option>
+            <option value="autre">Autre</option>
+        </select>
+
+        <!-- Niveau de satisfaction -->
+        <p>Votre niveau de satisfaction :</p>
+        <div class="satisfaction-buttons">
+            <button type="button" class="satisfaction-btn" data-value="satisfaite">Satisfaite</button>
+            <button type="button" class="satisfaction-btn" data-value="moins_satisfaite">Moins satisfaite</button>
+            <button type="button" class="satisfaction-btn" data-value="mécontente">Mécontente</button>
+        </div>
+
+        <input type="hidden" id="niveau-satisfaction" name="niveau_satisfaction" />
+
+        <!-- Bouton Envoyer -->
+        <button type="submit" class="submit-btn">Envoyer</button>
+    </form>
+</main>
+
+<script src="FORMULAIRE .js"></script>
+</body>
+</html>
