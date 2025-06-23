@@ -1,171 +1,127 @@
-/* Reset de base */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-/* Fond général rouge clair avec blanc */
 body {
-    background: linear-gradient(135deg, #fff 0%, #cc0000 100%);
-    color: #fff;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  color: #333;
+  margin: 0;
+  padding: 0;
 }
 
-/* Header avec logo et titre stylé */
 header {
-    text-align: center;
-    margin-bottom: 40px;
-    width: 100%;
-    max-width: 600px;
+  background-color: #a30000;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
 }
 
-.logo-container {
-    background: #fff;
-    padding: 10px;
-    border-radius: 15px;
-    display: inline-block;
-    margin-bottom: 15px;
-    box-shadow: 0 0 15px rgba(255,255,255,0.5);
+header img {
+  height: 50px;
 }
 
-.logo {
-    height: 60px;
+.container {
+  max-width: 600px;
+  margin: 2rem auto;
+  background-color: #f9f9f9;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
-.main-title {
-    font-size: 2.8rem;
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: #fff;
-    text-shadow: 2px 2px 6px #660000;
+h2 {
+  text-align: center;
+  color: #a30000;
 }
 
-/* Formulaire centré et blanc */
-form#feedback-form {
-    background: #fff;
-    color: #333;
-    padding: 30px 40px;
-    border-radius: 20px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-    width: 100%;
-    max-width: 600px;
+label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
 }
 
-/* Labels stylés */
-form label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: 600;
-    color: #cc0000;
+select, textarea, input[type="text"], input[type="radio"] {
+  width: 100%;
+  padding: 8px;
+  margin-top: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
-/* Champs texte */
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-select,
-textarea {
-    width: 100%;
-    padding: 12px 15px;
-    margin-bottom: 20px;
-    border: 2px solid #cc0000;
-    border-radius: 10px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
+.emoji-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
 }
 
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="tel"]:focus,
-select:focus,
-textarea:focus {
-    border-color: #ff0000;
-    outline: none;
+.emoji-option {
+  flex: 1;
+  text-align: center;
+  cursor: pointer;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  margin: 0 5px;
+  border-radius: 5px;
+  background-color: white;
+  transition: background-color 0.3s;
 }
 
-/* Checkbox */
-input[type="checkbox"] {
-    margin-right: 8px;
+.emoji-option:hover,
+.emoji-option.selected {
+  background-color: #ffe5e5;
+  border-color: #a30000;
+}
+.emoji-option.selected.tres-satisfaisant {
+  background-color: #d4edda; /* vert clair */
+  border-color: #28a745;
 }
 
-/* Boutons satisfaction */
-.satisfaction-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 30px;
+.emoji-option.selected.satisfaisant {
+  background-color: #fff3cd; /* jaune clair */
+  border-color: #ffc107;
 }
 
-.satisfaction-btn {
-    flex: 1;
-    margin: 0 8px;
-    padding: 15px 0;
-    font-size: 1.1rem;
-    font-weight: 700;
-    border: 2px solid #cc0000;
-    border-radius: 12px;
-    background-color: #fff;
-    color: #cc0000;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    user-select: none;
+.emoji-option.selected.peu-satisfaisant {
+  background-color: #e2e3e5; /* gris */
+  border-color: #6c757d;
 }
 
-.satisfaction-btn:first-child {
-    margin-left: 0;
+.emoji-option.selected.pas-satisfaisant {
+  background-color: #f8d7da; /* rouge clair */
+  border-color: #dc3545;
 }
 
-.satisfaction-btn:last-child {
-    margin-right: 0;
+
+button {
+  background-color: #a30000;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  width: 100%;
 }
 
-/* Couleurs actives des boutons selon satisfaction */
-.satisfaction-btn.active[data-value="satisfaite"] {
-    background-color: #2de749; /* Bleu */
-    color: #fff;
-    border-color: #007bff;
+button:hover {
+  background-color: #880000;
+}
+header {
+  background-color: #a30000;
+  padding: 1rem;
+  text-align: center;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.satisfaction-btn.active[data-value="moins_satisfaite"] {
-    background-color: #ffc107; /* Jaune */
-    color: #333;
-    border-color: #ffc107;
+header img {
+  height: 60px;
+  margin-bottom: 0.5rem;
 }
 
-.satisfaction-btn.active[data-value="mécontente"] {
-    background-color: #dc3545; /* Rouge foncé */
-    color: #fff;
-    border-color: #dc3545;
-}
-
-/* Bouton envoyer stylé */
-.submit-btn {
-    width: 100%;
-    padding: 15px;
-    font-size: 1.3rem;
-    font-weight: 900;
-    color: #fff;
-    background-color: #cc0000;
-    border: none;
-    border-radius: 15px;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(204,0,0,0.7);
-    transition: background-color 0.3s ease;
-}
-
-.submit-btn:hover {
-    background-color: #b3a8a8;
-}
-
-/* Responsive */
-@media(max-width: 650px) {
-    form#feedback-form {
-        padding: 20px;
-    }
+header h1 {
+  margin: 0;
+  font-size: 2rem;
 }
