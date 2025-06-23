@@ -1,102 +1,73 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Formulaire de Feedback SUNU Assurance</title>
-    <link rel="stylesheet" href="FORMULAIRE.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feedback Client - SUNU</title>
+  <link rel="stylesheet" href="FORMULAIRE.css" />
 </head>
 <body>
 
-<header>
-    <div class="logo-container">
-        <img src="SUNU LOGO.jfif" alt="Logo SUNU Assurance" class="logo" />
-    </div>
-    <h1 class="main-title">Votre Avis Compte chez SUNU Assurance</h1>
+  <header>
+  <img src="SUNU LOGO.jfif" alt="Logo SUNU" />
+  <h1>Feedback Client</h1>
 </header>
 
-<main>
-    <form id="feedback-form">
-        <!-- Nom (optionnel) -->
-        <label for="nom">Nom (optionnel) :</label>
-        <input type="text" id="nom" name="nom" placeholder="Votre nom" />
+  <div class="container">
+    <h2>Votre avis compte !</h2>
 
-        <!-- Prénom (optionnel) -->
-        <label for="prenom">Prénom (optionnel) :</label>
-        <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" />
+    <form id="feedbackForm">
+      <label>1. Quel est le service que vous avez visité ?</label>
+      <select name="service" required>
+        <option value="">-- Choisissez --</option>
+        <option value="Accueil">Accueil</option>
+        <option value="Souscription">Souscription</option>
+        <option value="Sinistres">Sinistres</option>
+        <option value="Paiement">Paiement</option>
+        <option value="Autre">Autre</option>
+      </select>
 
-        <!-- Email (requis) -->
-        <label for="email">Email (optionnel)  :</label>
-        <input type="email" id="email" name="email" placeholder="votre.email@example.com" required />
+      <label>2. Comment évaluez-vous la qualité de l’accueil ?</label>
+      <div class="emoji-group" id="satisfactionGroup">
+        <div class="emoji-option" data-value="Très satisfaisant">😄</div>
+        <div class="emoji-option" data-value="Satisfaisant">🙂</div>
+        <div class="emoji-option" data-value="Peu satisfaisant">😐</div>
+        <div class="emoji-option" data-value="Pas du tout satisfaisant">😞</div>
+      </div>
+      <input type="hidden" name="satisfaction" id="satisfactionInput" required>
 
-        <!-- Téléphone (optionnel) -->
-        <label for="telephone">Téléphone (optionnel) :</label>
-        <input type="tel" id="telephone" name="telephone" placeholder="+221 77 123 45 67" />
+      <label>3. Avez-vous été bien informé(e) sur votre demande ?</label>
+      <select name="information" required>
+        <option value="">-- Choisissez --</option>
+        <option value="Oui">Oui</option>
+        <option value="Non">Non</option>
+      </select>
 
-        <!-- Demande d'être rappelé -->
-        <label>
-            <input type="checkbox" id="rappel" name="rappel" />
-            Je souhaite être rappelé
-        </label>
+      <label>4. Combien de temps avez-vous attendu ?</label>
+      <select name="attente" required>
+        <option value="">-- Choisissez --</option>
+        <option value="Moins de 5 minutes">⏱️ Moins de 5 minutes</option>
+        <option value="Entre 5 et 15 minutes">⏱️ Entre 5 et 15 minutes</option>
+        <option value="Plus de 15 minutes">⏱️ Plus de 15 minutes</option>
+      </select>
 
-        <!-- Département où il est venu -->
-        <label for="departement">Département visité :</label>
-<select id="departement" name="departement" required>
-         <option value="">-- Sélectionnez un département --</option>
-         <option value="accueil">Accueil</option>
-         <option value="reassurance">Réassurance</option>
-         <option value="courtage">Courtage</option>
-         <option value="sante">Santé</option>
-       <option value="transport">Transport</option>
-       <option value="comptable">Comptable</option>
-       <option value="information">Information</option>
-       <option value="autre">Autre</option>
-</select>
+      <label>5. Recommanderiez-vous SUNU Assurances à vos proches ?</label>
+      <select name="recommande" required>
+        <option value="">-- Choisissez --</option>
+        <option value="Oui">👍 Oui</option>
+        <option value="Non">👎 Non</option>
+      </select>
 
-        <!-- Objet de sa visite -->
-        <label for="objet">Objet de votre visite :</label>
-        <input type="text" id="objet" name="objet" placeholder="Ce que vous êtes venu faire" required />
+      <label>Pourquoi ?</label>
+      <textarea name="justification" rows="2" placeholder="Expliquez brièvement..."></textarea>
 
-        <!-- Est-ce que ça a été fait ? -->
-        <p>Est-ce que votre demande a été traitée ?</p>
-        <label>
-            <input type="radio" name="fait" value="oui" required />
-            Oui
-        </label>
-        <label>
-            <input type="radio" name="fait" value="non" required />
-            Non
-        </label>
+      <label>6. Avez-vous un commentaire ou une suggestion ?</label>
+      <textarea name="commentaire" rows="3" placeholder="Votre message..."></textarea>
 
-        <!-- Commentaire -->
-        <label for="commentaire">Votre commentaire :</label>
-        <textarea id="commentaire" name="commentaire" rows="4" placeholder="Votre avis, remarques, suggestions..."></textarea>
-
-        <!-- Sujet de la demande -->
-        <label for="sujet">Sujet de la demande :</label>
-        <select id="sujet" name="sujet" required>
-            <option value="" disabled selected>-- Sélectionnez un sujet --</option>
-            <option value="assurance">Assurance</option>
-            <option value="sinistre">Déclaration de sinistre</option>
-            <option value="facturation">Facturation</option>
-            <option value="autre">Autre</option>
-        </select>
-
-        <!-- Niveau de satisfaction -->
-        <p>Votre niveau de satisfaction :</p>
-        <div class="satisfaction-buttons">
-            <button type="button" class="satisfaction-btn" data-value="satisfaite">Satisfaite</button>
-            <button type="button" class="satisfaction-btn" data-value="moins_satisfaite">Moins satisfaite</button>
-            <button type="button" class="satisfaction-btn" data-value="mécontente">Mécontente</button>
-        </div>
-
-        <input type="hidden" id="niveau-satisfaction" name="niveau_satisfaction" />
-
-        <!-- Bouton Envoyer -->
-        <button type="submit" class="submit-btn">Envoyer</button>
+      <button type="submit">Envoyer</button>
     </form>
-</main>
+  </div>
 
-<script src="FORMULAIRE.js"></script>
+  <script src="FORMULAIRE .js"></script>
 </body>
 </html>
