@@ -1,31 +1,41 @@
-// On attend que le DOM soit chargé
-document.addEventListener("DOMContentLoaded", () => {
-  // Récupérer tous les boutons de satisfaction
-  const buttons = document.querySelectorAll(".satisfaction-btn");
-  // Input caché pour stocker la valeur sélectionnée
-  const inputSatisfaction = document.getElementById("niveau-satisfaction");
+const emojis = document.querySelectorAll('.emoji-option');
+const satisfactionInput = document.getElementById('satisfactionInput');
 
-  buttons.forEach(button => {
-    button.addEventListener("click", () => {
-      // On retire la classe 'active' de tous les boutons
-      buttons.forEach(btn => btn.classList.remove("active"));
-      // On active celui qui a été cliqué
-      button.classList.add("active");
-      // On met à jour la valeur cachée du formulaire
-      inputSatisfaction.value = button.getAttribute("data-value");
+emojis.forEach(emoji => {
+  emoji.addEventListener('click', () => {
+    // Supprimer les anciennes sélections et couleurs
+    emojis.forEach(e => {
+      e.classList.remove('selected', 'tres-satisfaisant', 'satisfaisant', 'peu-satisfaisant', 'pas-satisfaisant');
     });
-  });
 
-  // Gestion de l'envoi du formulaire
-  const form = document.getElementById("feedback-form");
-  form.addEventListener("submit", (e) => {
-    // On empêche l'envoi si aucune satisfaction sélectionnée
-    if (!inputSatisfaction.value) {
-      e.preventDefault();
-      alert("Veuillez sélectionner votre niveau de satisfaction avant d'envoyer.");
-      return false;
+    emoji.classList.add('selected');
+
+    // Ajouter la bonne couleur selon l'emoji choisi
+    const value = emoji.dataset.value;
+    satisfactionInput.value = value;
+
+    switch (value) {
+      case 'Très satisfaisant':
+        emoji.classList.add('tres-satisfaisant');
+        break;
+      case 'Satisfaisant':
+        emoji.classList.add('satisfaisant');
+        break;
+      case 'Peu satisfaisant':
+        emoji.classList.add('peu-satisfaisant');
+        break;
+      case 'Pas du tout satisfaisant':
+        emoji.classList.add('pas-satisfaisant');
+        break;
     }
-
-    // Ici, tu peux ajouter un code pour envoyer via fetch/AJAX ou autre, sinon le formulaire envoie normalement
   });
+});
+
+document.getElementById('feedbackForm').addEventListener('submit', function (e) {
+  if (!satisfactionInput.value) {
+    alert("Veuillez sélectionner un niveau de satisfaction.");
+    e.preventDefault();
+    return;
+  }
+  alert("Merci pour votre retour !");
 });
