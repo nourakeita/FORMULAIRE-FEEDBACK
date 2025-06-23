@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -10,15 +11,36 @@
 <body>
 
   <header>
-  <img src="SUNU_LOGO.png" alt="Logo SUNU" />
-  <h1>Feedback Client</h1>
-</header>
+    <img src="SUNU_LOGO.png" alt="Logo SUNU" />
+    <h1>Feedback Client</h1>
+  </header>
 
   <div class="container">
     <h2>Votre avis compte !</h2>
 
     <form id="feedbackForm">
-      <label>1. Quel est le service que vous avez visité ?</label>
+      <label>1. Nom et prénom</label>
+      <input 
+        type="text" 
+        name="nom" 
+        placeholder="Votre nom" 
+        required 
+      />
+
+      <label>2. Numéro de téléphone</label>
+      <div class="phone-wrapper">
+        <span class="phone-prefix">+225</span>
+        <input 
+          type="tel" 
+          name="telephone" 
+          placeholder="0701020304" 
+          pattern="[0-9]{8,15}" 
+          required 
+          class="phone-input"
+        />
+      </div>
+
+      <label>3. Quel est le service que vous avez visité ?</label>
       <select name="service" required>
         <option value="">-- Choisissez --</option>
         <option value="Accueil">Accueil</option>
@@ -28,23 +50,23 @@
         <option value="Autre">Autre</option>
       </select>
 
-      <label>2. Comment évaluez-vous la qualité de l’accueil ?</label>
+      <label>4. Comment évaluez-vous la qualité de l’accueil ?</label>
       <div class="emoji-group" id="satisfactionGroup">
         <div class="emoji-option" data-value="Très satisfaisant">😄</div>
         <div class="emoji-option" data-value="Satisfaisant">🙂</div>
         <div class="emoji-option" data-value="Peu satisfaisant">😐</div>
         <div class="emoji-option" data-value="Pas du tout satisfaisant">😞</div>
       </div>
-      <input type="hidden" name="satisfaction" id="satisfactionInput" required>
+      <input type="hidden" name="satisfaction" id="satisfactionInput" required />
 
-      <label>3. Avez-vous été bien informé(e) sur votre demande ?</label>
+      <label>5. Avez-vous été bien informé(e) sur votre demande ?</label>
       <select name="information" required>
         <option value="">-- Choisissez --</option>
         <option value="Oui">Oui</option>
         <option value="Non">Non</option>
       </select>
 
-      <label>4. Combien de temps avez-vous attendu ?</label>
+      <label>6. Combien de temps avez-vous attendu ?</label>
       <select name="attente" required>
         <option value="">-- Choisissez --</option>
         <option value="Moins de 5 minutes">⏱️ Moins de 5 minutes</option>
@@ -52,7 +74,7 @@
         <option value="Plus de 15 minutes">⏱️ Plus de 15 minutes</option>
       </select>
 
-      <label>5. Recommanderiez-vous SUNU Assurances à vos proches ?</label>
+      <label>7. Recommanderiez-vous SUNU Assurances à vos proches ?</label>
       <select name="recommande" required>
         <option value="">-- Choisissez --</option>
         <option value="Oui">👍 Oui</option>
@@ -60,10 +82,18 @@
       </select>
 
       <label>Pourquoi ?</label>
-      <textarea name="justification" rows="2" placeholder="Expliquez brièvement..."></textarea>
+      <textarea 
+        name="justification" 
+        rows="2" 
+        placeholder="Expliquez brièvement..."
+      ></textarea>
 
-      <label>6. Avez-vous un commentaire ou une suggestion ?</label>
-      <textarea name="commentaire" rows="3" placeholder="Votre message..."></textarea>
+      <label>8. Avez-vous un commentaire ou une suggestion ?</label>
+      <textarea 
+        name="commentaire" 
+        rows="3" 
+        placeholder="Votre message..."
+      ></textarea>
 
       <button type="submit">Envoyer</button>
     </form>
@@ -72,3 +102,4 @@
   <script src="FORMULAIRE.js"></script>
 </body>
 </html>
+
