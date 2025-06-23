@@ -19,7 +19,7 @@
     <h2>Votre avis compte !</h2>
 
     <form id="feedbackForm">
-      <label>1. Nom et prénom</label>
+      <label>1. Nom </label>
       <input 
         type="text" 
         name="nom" 
@@ -27,7 +27,15 @@
         required 
       />
 
-      <label>2. Numéro de téléphone</label>
+      <form id="feedbackForm">
+      <label>2. Prenom</label>
+      <input 
+        type="text" 
+        name="nom" 
+        placeholder="Votre nom" 
+        required 
+      />
+      <label>3. Numéro de téléphone</label>
       <div class="phone-wrapper">
         <span class="phone-prefix">+225</span>
         <input 
@@ -40,7 +48,7 @@
         />
       </div>
 
-      <label>3. Quel est le service que vous avez visité ?</label>
+      <label>4. Quel est le service que vous avez visité ?</label>
       <select name="service" required>
         <option value="">-- Choisissez --</option>
         <option value="Accueil">Accueil</option>
@@ -50,7 +58,7 @@
         <option value="Autre">Autre</option>
       </select>
 
-      <label>4. Comment évaluez-vous la qualité de l’accueil ?</label>
+      <label>5. Comment évaluez-vous la qualité de l’accueil ?</label>
       <div class="emoji-group" id="satisfactionGroup">
         <div class="emoji-option" data-value="Très satisfaisant">😄</div>
         <div class="emoji-option" data-value="Satisfaisant">🙂</div>
@@ -59,14 +67,14 @@
       </div>
       <input type="hidden" name="satisfaction" id="satisfactionInput" required />
 
-      <label>5. Avez-vous été bien informé(e) sur votre demande ?</label>
+      <label>6. Avez-vous été bien informé(e) sur votre demande ?</label>
       <select name="information" required>
         <option value="">-- Choisissez --</option>
         <option value="Oui">Oui</option>
         <option value="Non">Non</option>
       </select>
 
-      <label>6. Combien de temps avez-vous attendu ?</label>
+      <label>7. Combien de temps avez-vous attendu ?</label>
       <select name="attente" required>
         <option value="">-- Choisissez --</option>
         <option value="Moins de 5 minutes">⏱️ Moins de 5 minutes</option>
@@ -74,7 +82,7 @@
         <option value="Plus de 15 minutes">⏱️ Plus de 15 minutes</option>
       </select>
 
-      <label>7. Recommanderiez-vous SUNU Assurances à vos proches ?</label>
+      <label>8. Recommanderiez-vous SUNU Assurances à vos proches ?</label>
       <select name="recommande" required>
         <option value="">-- Choisissez --</option>
         <option value="Oui">👍 Oui</option>
@@ -88,7 +96,7 @@
         placeholder="Expliquez brièvement..."
       ></textarea>
 
-      <label>8. Avez-vous un commentaire ou une suggestion ?</label>
+      <label>9. Avez-vous un commentaire ou une suggestion ?</label>
       <textarea 
         name="commentaire" 
         rows="3" 
