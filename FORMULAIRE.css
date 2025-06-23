@@ -125,3 +125,10 @@ header h1 {
   margin: 0;
   font-size: 2rem;
 }
+.emoji {
+  font-size: 2.5rem;
+  padding: 10px;
+  display: inline-block;
+  cursor: pointer;
+  user-select: none;
+}
