@@ -1,10 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
   <title>Feedback Client - SUNU</title>
   <link rel="stylesheet" href="FORMULAIRE.css" />
 </head>
@@ -18,45 +16,28 @@
   <div class="container">
     <h2>Votre avis compte !</h2>
 
-    <form id="feedbackForm">
+    <form id="feedbackForm" action="Traitement.php" method="POST">
       <label>1. Nom </label>
-      <input 
-        type="text" 
-        name="nom" 
-        placeholder="Votre nom" 
-        required 
-      />
+      <input type="text" name="nom" placeholder="Votre nom" required />
 
-      <form id="feedbackForm">
-      <label>2. Prenom</label>
-      <input 
-        type="text" 
-        name="nom" 
-        placeholder="Votre nom" 
-        required 
-      />
+      <label>2. Prénom</label>
+      <input type="text" name="prenom" placeholder="Votre prénom" required />
+
       <label>3. Numéro de téléphone</label>
       <div class="phone-wrapper">
         <span class="phone-prefix">+225</span>
-        <input 
-          type="tel" 
-          name="telephone" 
-          placeholder="0701020304" 
-          pattern="[0-9]{8,15}" 
-          required 
-          class="phone-input"
-        />
+        <input type="tel" name="numero" placeholder="0701020304" pattern="[0-9]{8,15}" required class="phone-input" />
       </div>
 
       <label>4. Quel est le service que vous avez visité ?</label>
-      <select name="service" required>
-        <option value="">-- Choisissez --</option>
-        <option value="Accueil">Accueil</option>
-        <option value="Souscription">Souscription</option>
-        <option value="Sinistres">Sinistres</option>
-        <option value="Paiement">Paiement</option>
-        <option value="Autre">Autre</option>
-      </select>
+      <select name="id_service" required>
+  <option value="">-- Choisissez --</option>
+  <option value="1">Accueil</option>
+  <option value="2">Souscription</option>
+  <option value="3">Sinistres</option>
+  <option value="4">Paiement</option>
+  <option value="5">Autre</option>
+</select>
 
       <label>5. Comment évaluez-vous la qualité de l’accueil ?</label>
       <div class="emoji-group" id="satisfactionGroup">
@@ -83,25 +64,17 @@
       </select>
 
       <label>8. Recommanderiez-vous SUNU Assurances à vos proches ?</label>
-      <select name="recommande" required>
+      <select name="recommandation" required>
         <option value="">-- Choisissez --</option>
         <option value="Oui">👍 Oui</option>
         <option value="Non">👎 Non</option>
       </select>
 
       <label>Pourquoi ?</label>
-      <textarea 
-        name="justification" 
-        rows="2" 
-        placeholder="Expliquez brièvement..."
-      ></textarea>
+      <textarea name="justification" rows="2" placeholder="Expliquez brièvement..."></textarea>
 
       <label>9. Avez-vous un commentaire ou une suggestion ?</label>
-      <textarea 
-        name="commentaire" 
-        rows="3" 
-        placeholder="Votre message..."
-      ></textarea>
+      <textarea name="commentaire" rows="3" placeholder="Votre message..."></textarea>
 
       <button type="submit">Envoyer</button>
     </form>
@@ -110,4 +83,3 @@
   <script src="FORMULAIRE.js"></script>
 </body>
 </html>
-
