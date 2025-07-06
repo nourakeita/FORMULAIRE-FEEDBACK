@@ -30,23 +30,27 @@
       </div>
 
       <label>4. Quel est le service que vous avez visité ?</label>
-      <select name="id_service" required>
+<select name="id_service" required>
   <option value="">-- Choisissez --</option>
   <option value="1">Accueil</option>
   <option value="2">Souscription</option>
-  <option value="3">Sinistres</option>
-  <option value="4">Paiement</option>
-  <option value="5">Autre</option>
+  <option value="3">Sinistre</option>
+  <option value="4">Trésorerie</option>
+  <option value="5">Bureau Direct</option>
+  <option value="6">Service Relation-Client</option>
+  <option value="7">Autre</option>
 </select>
 
+
       <label>5. Comment évaluez-vous la qualité de l’accueil ?</label>
-      <div class="emoji-group" id="satisfactionGroup">
-        <div class="emoji-option" data-value="Très satisfaisant">😄</div>
-        <div class="emoji-option" data-value="Satisfaisant">🙂</div>
-        <div class="emoji-option" data-value="Peu satisfaisant">😐</div>
-        <div class="emoji-option" data-value="Pas du tout satisfaisant">😞</div>
-      </div>
-      <input type="hidden" name="satisfaction" id="satisfactionInput" required />
+<div class="emoji-group" id="satisfactionGroup">
+  <div class="emoji-option" data-value="Très satisfaisant">👍👍</div>
+  <div class="emoji-option" data-value="Satisfaisant">👍</div>
+  <div class="emoji-option" data-value="Peu satisfaisant">👎</div>
+  <div class="emoji-option" data-value="Pas du tout satisfaisant">👎👎</div>
+</div>
+<input type="hidden" name="satisfaction" id="satisfactionInput" required />
+
 
       <label>6. Avez-vous été bien informé(e) sur votre demande ?</label>
       <select name="information" required>
@@ -81,5 +85,11 @@
   </div>
 
   <script src="FORMULAIRE.js"></script>
+<form autocomplete="off">
+  <input type="text" name="nom" autocomplete="off" />
+  <input type="text" name="prenom" autocomplete="off" />
+  <input type="tel" name="numero_telephone" autocomplete="off" />
+  <!-- autres champs -->
+</form>
 </body>
 </html>
