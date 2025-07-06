@@ -1,10 +1,10 @@
 <?php
 
 // --- 1. Configuration de la base de données ---
-$host = 'localhost'; // Habituellement 'localhost' pour un serveur local
-$dbname = 'sunu_feedback'; // Le nom de la base de données que nous venons de créer
-$username = 'noura_keita'; // Votre nom d'utilisateur phpMyAdmin (par défaut 'root' pour XAMPP/WAMP)
-$password = 'Kassoum08@'; // Votre mot de passe phpMyAdmin (par défaut vide pour XAMPP/WAMP)
+$host = 'localhost';
+$dbname = 'sunu_feedback';
+$username = 'noura_keita';
+$password = 'Kassoum08@';
 
 // --- 2. Connexion à la base de données ---
 try {
@@ -12,18 +12,17 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 } catch (PDOException $e) {
-    // En cas d'erreur de connexion, arrêtez le script et affichez un message
     die("Erreur de connexion à la base de données : " . $e->getMessage());
 }
 
 // --- 3. Vérification si le formulaire a été soumis via POST ---
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     // --- 4. Récupération et nettoyage des données du formulaire ---
-    // Utilisez htmlspecialchars pour prévenir les attaques XSS et trim pour nettoyer les espaces
     $nom = htmlspecialchars(trim($_POST['nom']));
     $prenom = htmlspecialchars(trim($_POST['prenom']));
-    $numero_telephone = htmlspecialchars(trim($_POST['numero'])); // Numéro sans le préfixe +225 initialement
-    $service_choisi_nom = htmlspecialchars(trim($_POST['id_service'])); // C'est l'ID du service envoyé par le formulaire
+    $numero_telephone = htmlspecialchars(trim($_POST['numero']));
+    $id_service_post = htmlspecialchars(trim($_POST['id_service'])); // ID reçu du formulaire
     $qualite_accueil = htmlspecialchars(trim($_POST['satisfaction']));
     $bien_informe = htmlspecialchars(trim($_POST['information']));
     $temps_attente = htmlspecialchars(trim($_POST['attente']));
@@ -31,46 +30,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $justification = htmlspecialchars(trim($_POST['justification']));
     $commentaire = htmlspecialchars(trim($_POST['commentaire']));
 
-    // Ajout du préfixe +225 au numéro de téléphone pour la base de données si nécessaire
-    // Si votre input n'inclut pas le +225, ajoutez-le ici
-    if (strpos($numero_telephone, '+225') !== 0) { // Vérifie si le préfixe n'est pas déjà présent
-        $numero_telephone_db = '+225' . $numero_telephone;
+    // Validation simple du numéro de téléphone (ex : uniquement chiffres et longueur entre 8 et 15)
+    $numero_sans_prefixe = preg_replace('/\D/', '', $numero_telephone); // Retire tout sauf chiffres
+    if (strlen($numero_sans_prefixe) < 8 || strlen($numero_sans_prefixe) > 15) {
+        die("Le numéro de téléphone est invalide.");
+    }
+
+    // Ajout du préfixe +225 si absent
+    if (strpos($numero_telephone, '+225') !== 0) {
+        $numero_telephone_db = '+225' . $numero_sans_prefixe;
     } else {
         $numero_telephone_db = $numero_telephone;
     }
 
     try {
-        // --- 5. Gérer la table 'clients' ---
-        // Vérifier si le client existe déjà basé sur le numéro de téléphone
-        $stmt = $pdo->prepare("SELECT id_client FROM clients WHERE numero_telephone = :numero_telephone");
-        $stmt->bindParam(':numero_telephone', $numero_telephone_db);
-        $stmt->execute();
-        $client = $stmt->fetch(PDO::FETCH_ASSOC);
+    // --- 5. Gérer la table 'clients' ---
+// Chercher un client avec le même numéro, nom et prénom
+$stmt = $pdo->prepare("SELECT id_client FROM clients WHERE numero_telephone = :numero_telephone AND nom_client = :nom_client AND prenom_client = :prenom_client");
+$stmt->bindParam(':numero_telephone', $numero_telephone_db);
+$stmt->bindParam(':nom_client', $nom);
+$stmt->bindParam(':prenom_client', $prenom);
+$stmt->execute();
+$client = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $id_client = null;
-        if ($client) {
-            // Le client existe, récupérez son ID
-            $id_client = $client['id_client'];
-        } else {
-            // Le client n'existe pas, insérez-le
-            $stmt = $pdo->prepare("INSERT INTO clients (nom_client, prenom_client, numero_telephone) VALUES (:nom, :prenom, :numero_telephone)");
-            $stmt->bindParam(':nom', $nom);
-            $stmt->bindParam(':prenom', $prenom);
-            $stmt->bindParam(':numero_telephone', $numero_telephone_db);
-            $stmt->execute();
-            $id_client = $pdo->lastInsertId(); // Récupérez l'ID du nouveau client inséré
-        }
+$id_client = null;
+if ($client) {
+    // Client existant trouvé, on réutilise son id_client
+    $id_client = $client['id_client'];
+} else {
+    // Aucun client trouvé, on en crée un nouveau
+    $stmt = $pdo->prepare("INSERT INTO clients (nom_client, prenom_client, numero_telephone) VALUES (:nom, :prenom, :numero_telephone)");
+    $stmt->bindParam(':nom', $nom);
+    $stmt->bindParam(':prenom', $prenom);
+    $stmt->bindParam(':numero_telephone', $numero_telephone_db);
+    $stmt->execute();
+    $id_client = $pdo->lastInsertId();
+}
 
-        // Vérifier si nous avons bien un id_client
-        if (is_null($id_client)) {
-            throw new Exception("Impossible d'obtenir l'ID du client.");
-        }
+if (is_null($id_client)) {
+    throw new Exception("Impossible d'obtenir l'ID du client.");
+}
+        // --- 6. Valider et convertir id_service ---
+        $id_service_feedback = (int)$id_service_post;
 
-        // --- 6. Récupérer l'ID du service à partir de l'ID envoyé par le formulaire ---
-        // Le formulaire envoie déjà l'id_service (1, 2, 3, etc.)
-        $id_service_feedback = (int)$service_choisi_nom; // Convertir en entier pour s'assurer du type correct
-
-        // Optionnel mais recommandé : Vérifier que l'id_service existe dans la table 'services'
+        // Vérifier que l'id_service existe
         $stmt = $pdo->prepare("SELECT id_service FROM services WHERE id_service = :id_service");
         $stmt->bindParam(':id_service', $id_service_feedback, PDO::PARAM_INT);
         $stmt->execute();
@@ -78,8 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             throw new Exception("L'ID du service soumis est invalide.");
         }
 
-
-        // --- 7. Insérer le feedback dans la table 'feedbacks' ---
+        // --- 7. Insérer le feedback ---
         $sql = "INSERT INTO feedbacks (
                     id_client,
                     id_service,
@@ -102,7 +104,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $stmt = $pdo->prepare($sql);
 
-        // Liaison des valeurs
         $stmt->bindParam(':id_client', $id_client, PDO::PARAM_INT);
         $stmt->bindParam(':id_service', $id_service_feedback, PDO::PARAM_INT);
         $stmt->bindParam(':qualite_accueil', $qualite_accueil);
@@ -112,25 +113,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bindParam(':justification', $justification);
         $stmt->bindParam(':commentaire', $commentaire);
 
-        // Exécution de la requête d'insertion du feedback
         $stmt->execute();
 
-        // --- 8. Redirection vers une page de succès ---
+        // --- 8. Redirection vers la page de succès ---
         header("Location: succes.html");
         exit();
 
     } catch (Exception $e) {
-        // Gérer les erreurs (ex: afficher un message d'erreur à l'utilisateur)
         echo "Une erreur est survenue lors du traitement de votre feedback : " . $e->getMessage();
-        // Pour le débogage, vous pouvez afficher plus de détails :
-        error_log("Erreur dans traitement.php: " . $e->getMessage()); // Pour logguer l'erreur sur le serveur
+        error_log("Erreur dans traitement.php: " . $e->getMessage());
     }
 
 } else {
-    // Si le formulaire n'a pas été soumis via POST, redirigez ou affichez un message
     echo "Accès non autorisé.";
-    // header("Location: index.html"); // Rediriger vers le formulaire
+    // header("Location: index.html");
     // exit();
 }
-
 ?>
